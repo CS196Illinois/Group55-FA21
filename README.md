@@ -1,8 +1,8 @@
-# Group TEAM_NUMBER
-Group Name: TEAM_NAME
+# 55
+Group Name: Shark Byte
 
-[MVP Link](http://cs196.cs.illinois.edu)
+[MVP Link](https://docs.google.com/document/d/1vs8gyGF-J8N9BCv1ynGYDZeJT7EHWhwbTP3zLKnZRtU/edit?usp=sharing)
 
-Team Members: STUDENTS_NETIDS
+Team Members: shreyav5, at34, collinm6, stutia3, yejilim2, mnath4
 
-Project Manager: PM_NETID
+Project Manager: tkim139
