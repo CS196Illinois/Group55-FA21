@@ -6,3 +6,4 @@ Group Name: Shark Byte
 Team Members: shreyav5, at34, collinm6, stutia3, yejilim2, mnath4
 
 Project Manager: tkim139
+Project name: Schedule 
