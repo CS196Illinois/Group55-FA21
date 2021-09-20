@@ -8,7 +8,7 @@ Sprint 1
 
 Get familiar with Python and tech stack
 
-Build basic model of using Google Maps API to get distances between locations
+Build basic model using Google Maps API to get distances between locations
 
 Sprint 2
 
