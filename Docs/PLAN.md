@@ -1,14 +1,18 @@
 Shark Byte
 
 Sprint 0
+
 MVP
+
 Plan.md
 
 Sprint 1
 
-Get familiar with Python and tech stack
+Get familiar with Python and tech stack (Flask)
 
 Build basic model using Google Maps API to get distances between locations
+
+Split up work to work on different features
 
 Sprint 2
 
@@ -22,7 +26,7 @@ Finalize MVP code
 
 Sprint 4
 
-Split up work to work on individual features
+Split up work to test individual features
 
 Keep testing
 
