@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        
+    body{
+        background: rgb(242, 249, 255)
+    }
+</style>
+  <head>
+    <title>Using templates in Flask</title>
+    <link rel="stylesheet" href="static/styles.css">
+  </head>
+  <body>
+    
+    <header class="header">
+        <style>
+          h1{
+            font-family: Ubuntu;
+            font-size:32px;
+          }
+        h1, span{
+          font-family:Ubuntu;
+          font-size: 28px;
+        }
+        
+    </style>
+      <h1>SharkByte<span id="appname"> - Course Mapper</span></h1>
+    </header>
+    
+    <div class="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+   
+    <footer class="footer">
+    </footer>
+  </body>
+</html>

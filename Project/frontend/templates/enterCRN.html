@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    div{
+          font-family: Sans-Serif;
+          color: rgb(65, 65, 65);
+      }
+</style>
+<div class="CRN Retriever">
+      
+    <form method="post">
+        <label for="CRN">CRN</label>
+        <input type="text" name="CRN" id="CRN">
+        <input type="submit" value="Enter" href= "{{ url_for('index') }}">
+    </form>
+</div>
+{% endblock %}
