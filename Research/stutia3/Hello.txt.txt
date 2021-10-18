@@ -1,0 +1,4 @@
+Things to do by the end of this week
+-learn flask
+-use flask to make progress on front-end development
+-explore back-end frameworks
