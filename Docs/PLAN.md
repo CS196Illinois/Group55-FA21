@@ -35,3 +35,4 @@ Finalize product
 
 Finish Frontend and Backend development
 
+Work on Final Presentation
