@@ -1,0 +1,4 @@
+Progress:
+
+Learning flask and how to use google API
+Started working on frontend
