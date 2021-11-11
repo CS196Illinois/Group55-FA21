@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    div{
+          font-family: Sans-Serif;
+          color: rgb(65, 65, 65);
+      }
+</style>
+<div class="CRN Retriever">
+      
+    <form method="post" >
+        <label for="crn1">ENTER CLASS CRN's</label>
+        <br>
+        <input type="number" name="crn1" align
+            oninput="javascript: if (this.value.length > this.maxLength) 
+            this.value = this.value.slice(0, this.maxLength);"
+            maxlength="5">
+        <br>
+        <input type="number" name="crn2"
+            oninput="javascript: if (this.value.length > this.maxLength) 
+            this.value = this.value.slice(0, this.maxLength);"
+            maxlength="5">
+        <br>
+        <input type="number" name="crn3"
+            oninput="javascript: if (this.value.length > this.maxLength) 
+            this.value = this.value.slice(0, this.maxLength);"
+            maxlength="5">
+        <br>
+        <input type="number" name="crn4"
+            oninput="javascript: if (this.value.length > this.maxLength) 
+            this.value = this.value.slice(0, this.maxLength);"
+            maxlength="5">
+        <br>
+        <input type="number" name="crn5"
+            oninput="javascript: if (this.value.length > this.maxLength) 
+            this.value = this.value.slice(0, this.maxLength);"
+            maxlength="5">
+        <br>
+        <input type="submit" value="Enter">
+    </form>
+    
+</div>
+<div>
+    <h3>Schedule</h3>
+    <style>
+        table, td {
+          border:1px solid black;
+          font-size:10px;
+        }
+    </style>
+    <table> 
+        <tr>
+            <td></td>
+            <td>Sunday</td>
+            <td>Monday</td>
+            <td>Tuesday</td>
+            <td>Wednesday</td>
+            <td>Thusday</td>
+            <td>Friday</td>
+            <td>Saturday</td>
+        </tr>
+        <tr>
+            <td>8am</td>
+            <td width="50">{{crn1}}</td>
+            <td width="50">{{crn2}}</td>
+            <td width="50">{{crn3}}</td>
+            <td width="50">{{crn4}}</td>
+            <td width="50">{{crn5}}</td>
+        </tr>
+        
+        <tr>
+            <td>8:15</td>
+            <td width="50">{{crn1}}</td>
+            <td width="50">{{crn2}}</td>
+            <td width="50">{{crn3}}</td>
+            <td width="50">{{crn4}}</td>
+            <td width="50">{{crn5}}</td>
+        </tr>
+        
+        <tr>
+            <td>8:30</td>
+            <td width="50">{{crn1}}</td>
+            <td width="50">{{crn2}}</td>
+            <td width="50">{{crn3}}</td>
+            <td width="50">{{crn4}}</td>
+            <td width="50">{{crn5}}</td>
+        </tr>
+        
+        <tr>
+            <td>8:30</td>
+            <td width="50">{{crn1}}</td>
+            <td width="50">{{crn2}}</td>
+            <td width="50">{{crn3}}</td>
+            <td width="50">{{crn4}}</td>
+            <td width="50">{{crn5}}</td>
+        </tr>
+        
+        <tr>
+            <td>8:45</td>
+            <td width="50">{{crn1}}</td>
+            <td width="50">{{crn2}}</td>
+            <td width="50">{{crn3}}</td>
+            <td width="50">{{crn4}}</td>
+            <td width="50">{{crn5}}</td>
+        </tr>
+        
+    </table>
+    
+</div>
+{% endblock %}
