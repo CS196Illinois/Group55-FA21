@@ -11,7 +11,7 @@
     <form method="post" >
         <label for="crn1">ENTER CLASS CRN's</label>
         <br>
-        <input type="number" name="crn1" align
+        <input type="number" name="crn1"
             oninput="javascript: if (this.value.length > this.maxLength) 
             this.value = this.value.slice(0, this.maxLength);"
             maxlength="5">
@@ -42,12 +42,20 @@
 </div>
 <div>
     <h3>Schedule</h3>
+    <!-- Prints classes -->
+    {% for crn in crns %}
+      <p>{{ crn }} </p>
+    {% endfor %}
+    <!-- prints schedule -->
+    <p>{{test}}</p>
+
     <style>
         table, td {
           border:1px solid black;
           font-size:10px;
         }
     </style>
+    <!-- Calendar test -->
     <table> 
         <tr>
             <td></td>
@@ -61,47 +69,27 @@
         </tr>
         <tr>
             <td>8am</td>
-            <td width="50">{{crn1}}</td>
-            <td width="50">{{crn2}}</td>
-            <td width="50">{{crn3}}</td>
-            <td width="50">{{crn4}}</td>
-            <td width="50">{{crn5}}</td>
+            <td></td>
         </tr>
         
         <tr>
             <td>8:15</td>
-            <td width="50">{{crn1}}</td>
-            <td width="50">{{crn2}}</td>
-            <td width="50">{{crn3}}</td>
-            <td width="50">{{crn4}}</td>
-            <td width="50">{{crn5}}</td>
+            
         </tr>
         
         <tr>
             <td>8:30</td>
-            <td width="50">{{crn1}}</td>
-            <td width="50">{{crn2}}</td>
-            <td width="50">{{crn3}}</td>
-            <td width="50">{{crn4}}</td>
-            <td width="50">{{crn5}}</td>
+            
         </tr>
         
         <tr>
             <td>8:30</td>
-            <td width="50">{{crn1}}</td>
-            <td width="50">{{crn2}}</td>
-            <td width="50">{{crn3}}</td>
-            <td width="50">{{crn4}}</td>
-            <td width="50">{{crn5}}</td>
+            
         </tr>
         
         <tr>
             <td>8:45</td>
-            <td width="50">{{crn1}}</td>
-            <td width="50">{{crn2}}</td>
-            <td width="50">{{crn3}}</td>
-            <td width="50">{{crn4}}</td>
-            <td width="50">{{crn5}}</td>
+            
         </tr>
         
     </table>

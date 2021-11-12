@@ -5,13 +5,26 @@ app = Flask(__name__)
 
 @app.route("/")
 def main():
-  return render_template('enterCRN.html')
+  return render_template('enterCRN.html', test = "")
 @app.route("/", methods=['post'])
 def firstPagePost():
-    crn1=request.form['crn1'] 
-    crn2=request.form['crn2']
-    crn3=request.form['crn3']
-    crn4=request.form['crn4']
-    crn5=request.form['crn5']
-    return render_template('enterCRN.html', crn1=crn1, crn2=crn2, crn3=crn3,
-        crn4=crn4, crn5=crn5, product=int(crn1)*int(crn2)*int(crn3)*int(crn4)*int(crn5))
+    
+  crns = []
+  crns.append(request.form['crn1'])
+  crns.append(request.form['crn2'])
+  crns.append(request.form['crn3'])
+  crns.append(request.form['crn4'])
+  crns.append(request.form['crn5'])
+  days = {'M': [['09:00AM - 09:50AM', '149 National Soybean Res Ctr'],
+  ['12:00PM - 12:50PM', '112 Gregory Hall'],
+  ['10:00AM - 10:50AM', '4029 Campus Instructional Facility'],
+  ['13:00PM - 14:50PM', '325 David Kinley Hall']],
+ 'T': [['14:00PM - 15:20PM', '8 ACES Lib, Info & Alum Ctr']],
+ 'W': [['12:00PM - 12:50PM', '112 Gregory Hall'],
+  ['10:00AM - 10:50AM', '4029 Campus Instructional Facility'],
+  ['13:00PM - 14:50PM', '325 David Kinley Hall']],
+ 'R': [['14:00PM - 15:20PM', '8 ACES Lib, Info & Alum Ctr']],
+ 'F': [['10:00AM - 10:50AM', '4029 Campus Instructional Facility'],
+  ['13:00PM - 14:50PM', '325 David Kinley Hall']]}
+  test = str(days)
+  return render_template('enterCRN.html', test=test, crns = crns)
