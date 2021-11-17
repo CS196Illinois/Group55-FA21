@@ -1,17 +1,31 @@
 from flask import Flask, request, render_template
 
+from backend import getSchedule
+
 
 app = Flask(__name__)
 
 @app.route("/")
 def main():
-  return render_template('enterCRN.html')
+  return render_template('enterCRN.html', test = "")
 @app.route("/", methods=['post'])
 def firstPagePost():
-    crn1=request.form['crn1'] 
-    crn2=request.form['crn2']
-    crn3=request.form['crn3']
-    crn4=request.form['crn4']
-    crn5=request.form['crn5']
-    return render_template('enterCRN.html', crn1=crn1, crn2=crn2, crn3=crn3,
-        crn4=crn4, crn5=crn5, product=int(crn1)*int(crn2)*int(crn3)*int(crn4)*int(crn5))
+    
+  crns = []
+  if (len(request.form['crn1']) == 5):
+    crns.append(request.form['crn1'])
+  if (len(request.form['crn2']) == 5):
+    crns.append(request.form['crn2'])
+  if (len(request.form['crn3']) == 5):
+    crns.append(request.form['crn3'])
+  if (len(request.form['crn4']) == 5):
+    crns.append(request.form['crn4'])
+  if (len(request.form['crn5']) == 5):
+    crns.append(request.form['crn5'])
+  
+  
+  if len(crns) > 0:
+    test = getSchedule(crns)
+    return render_template('enterCRN.html', test=test, crns = crns)
+  else: 
+    return render_template('enterCRN.html')
