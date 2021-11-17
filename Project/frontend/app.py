@@ -26,6 +26,8 @@ def firstPagePost():
   
   if len(crns) > 0:
     test = getSchedule(crns)
+    #parsed = parseBackToBack(test)
+    #getTravelTime(parsed)
     return render_template('enterCRN.html', test=test, crns = crns)
   else: 
     return render_template('enterCRN.html')
