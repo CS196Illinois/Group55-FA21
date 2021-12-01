@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    div {
+        font-family: Sans-Serif;
+        color: rgb(65, 65, 65);
+    }
+</style>
+<style>
+    table {
+        width: 100%;
+    }
+    td {
+        width: 50%;
+        border: 0p;
+        font-size: 14px;
+    }
+    h3 {
+        text-align: center;
+        height: 0;
+    }
+    input, form {
+        text-align: center;
+    }
+</style>
+<table>
+    <tr>
+        <td><h3>ENTER CLASS CRN's</h3></td>
+        <td><h3>CONFLICTS</h3></td>
+    </tr>
+    <tr>
+        <td>
+            <form method="post">
+                <input type="number" name="crn1" oninput="javascript: if (this.value.length > this.maxLength) 
+            this.value = this.value.slice(0, this.maxLength);" maxlength="5">
+                <br>
+                <input type="number" name="crn2" oninput="javascript: if (this.value.length > this.maxLength) 
+            this.value = this.value.slice(0, this.maxLength);" maxlength="5">
+                <br>
+                <input type="number" name="crn3" oninput="javascript: if (this.value.length > this.maxLength) 
+            this.value = this.value.slice(0, this.maxLength);" maxlength="5">
+                <br>
+                <input type="number" name="crn4" oninput="javascript: if (this.value.length > this.maxLength) 
+            this.value = this.value.slice(0, this.maxLength);" maxlength="5">
+                <br>
+                <input type="number" name="crn5" oninput="javascript: if (this.value.length > this.maxLength) 
+            this.value = this.value.slice(0, this.maxLength);" maxlength="5">
+                <br>
+                <input type="submit" value="Enter">
+            </form>
+        </td>
+
+        <td>
+
+            <!-- Prints classes 
+    {% for crn in crns %}
+      <p>{{ crn }} </p>
+    {% endfor %}
+    prints schedule -->
+
+
+            {% for day in test %}
+            {% if test[day]|length > 0 %}
+            <p>{{day}}: {{test[day]}}</p>
+            {% else %}
+            <p>{{day}}: No conflicts</p>
+            {% endif %}
+            {% endfor %}
+
+        </td>
+</table>
+<!-- Calendar test 
+<table>
+    <tr>
+        <td></td>
+        <td>Sunday</td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thusday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+    </tr>
+    <tr>
+        <td>8am</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>8:15</td>
+
+    </tr>
+
+    <tr>
+        <td>8:30</td>
+
+    </tr>
+
+    <tr>
+        <td>8:30</td>
+
+    </tr>
+
+    <tr>
+        <td>8:45</td>
+
+    </tr>
+
+</table>
+-->
+
+
+{% endblock %}
