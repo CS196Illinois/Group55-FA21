@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
-from Project.frontend.backend import generate_daily_agenda
-
-from backend import getSchedule, extract_course_data, organize_classes, convert_times_and_sort_days, convert_to_datetime
+from flask import Flask
+# from Project.frontend.backend import generate_daily_agenda
+from backend import generate_daily_agenda, extract_course_data, organize_classes, convert_times_and_sort_days, convert_to_datetime
 
 
 app = Flask(__name__)
@@ -31,11 +31,11 @@ def firstPagePost():
     classes = generate_daily_agenda(days, course_data)
     sorted_day = {}
     classes_datetime = {"M" : [], "T" : [], "W": [], "R": [], "F" : []}
-    back_to_back = {"M" : [], "T" : [], "W": [], "R": [], "F" : []}
+    test = {"M" : [], "T" : [], "W": [], "R": [], "F" : []}
     convert_times_and_sort_days(days, sorted_day)
     convert_to_datetime(classes_datetime)
-    organize_classes(back_to_back, classes_datetime)
+    organize_classes(test, classes_datetime)
 
-    return render_template('enterCRN.html', test = back_to_back, crns = crns)
+    return render_template('enterCRN.html', test = test, crns = crns)
   else: 
     return render_template('enterCRN.html')
