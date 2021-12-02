@@ -78,6 +78,7 @@ def getSchedule(input):
     # for i in range (0, len(location_check)):  
     return(back_to_back)
 
+# this function extracts metadata about each crn from database.txt
 def extract_course_data(crns):
     d_final = {}
     file = open('database.txt', 'r')
@@ -92,9 +93,9 @@ def extract_course_data(crns):
     return d_final
 
 
-
 # generate_daily_agenda takes the course data and organizes it by day in a dictionary
-def generate_daily_agenda(days, crns):
+def generate_daily_agenda(crns):
+    days = {"M" : [], "T" : [], "W": [], "R": [], "F" : []}
     for item in crns.keys():
         if(len(crns[item][2]) > 1):
           for letter in crns[item][2]:
@@ -108,11 +109,12 @@ def generate_daily_agenda(days, crns):
             temp.append(crns[item][1])
             temp.append(crns[item][0])
             days[crns[item][2]].append(temp)
-
+    return days
 
 # convert_times_and_sort_days takes the days dictionary, and converts times after 12 pm to double digits
 # it also sorts the classes by the times in ascending order
-def convert_times_and_sort_days(days, sorted_days):
+def convert_times_and_sort_days(days):
+    sorted_days = {}
     for key, val in days.items():
       for item in val:
         if ("PM" in item[0] and (not("AM" in item[0]))):
@@ -130,6 +132,7 @@ def convert_times_and_sort_days(days, sorted_days):
     for key, val in days.items():
       val = sorted(val, key=lambda x: x[0])
       sorted_days[key] = val
+    return sorted_days
 
 
 # returns differece between start and end times
@@ -140,7 +143,8 @@ def timeDiff(end_time,start_time):
 
 
 # converts all the times in sorted_days to date time objects and populates classes_datetime
-def convert_to_datetime(classes_datetime):
+def convert_to_datetime(sorted_days):
+    classes_datetime = {"M" : [], "T" : [], "W": [], "R": [], "F" : []}
     datetime_object = datetime.strptime
     for key, val in sorted_days.items():
       for item in val:
@@ -148,11 +152,12 @@ def convert_to_datetime(classes_datetime):
         start = datetime.strptime(start_end[0][:-2], "%H:%M")
         end = datetime.strptime(start_end[2][:-2], "%H:%M")
         classes_datetime[key].append([item[1], start, end]);
-
+    return classes_datetime
 
 # creates a dictionary called back_to_back with the following format:
 # {M: [[class 1, class 2, time between class 1 & 2],[class 2, class 3, time between class 2 & 3] ]}
-def organize_classes(back_to_back, classes_datetime):
+def organize_classes(classes_datetime):
+    back_to_back = {"M" : [], "T" : [], "W": [], "R": [], "F" : []}
     for key, val in classes_datetime.items():
         i = 0
         while i < len(val) - 1:
@@ -160,7 +165,18 @@ def organize_classes(back_to_back, classes_datetime):
             item = val[i]
             following_item = val[i + 1]
             class_pair.append(item[0])
+            class_pair.append(item[2])
             class_pair.append(following_item[0])
+            class_pair.append(following_item[1])
             class_pair.append((following_item[1] - item[2]))
             back_to_back[key].append(class_pair)
             i = i + 1
+    return back_to_back
+    
+def finalClasses(crnsInput):
+    crns = extract_course_data(crnsInput)
+    days = generate_daily_agenda(crns)
+    sorted_days = convert_times_and_sort_days(days)
+    classes_datetime = convert_to_datetime(sorted_days)
+    back_to_back = organize_classes(classes_datetime)
+    return back_to_back
