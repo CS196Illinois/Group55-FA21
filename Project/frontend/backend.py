@@ -180,3 +180,18 @@ def finalClasses(crnsInput):
     classes_datetime = convert_to_datetime(sorted_days)
     back_to_back = organize_classes(classes_datetime)
     return back_to_back
+
+def parseBackToBack(schedule):
+    # schedule is back_to_back
+    back_to_back_sliced = {"M" : [], "T" : [], "W": [], "R": [], "F" : []}
+    for key, val in schedule.items():
+        temp_sliced = []
+        for clash in val:
+            translation_table = str.maketrans('', '', string.digits)
+            temp_sliced.append([clash[0].translate(translation_table).strip() + " UIUC", clash[1].translate(translation_table).strip() + " UIUC"])
+        back_to_back_sliced[key] += temp_sliced
+    print(back_to_back_sliced)
+    return back_to_back_sliced
+
+def getTravelTime(parsed_):
+    pass 
