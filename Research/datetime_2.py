@@ -1,22 +1,16 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import ast
 from datetime import datetime
 from datetime import time
 from datetime import timedelta
 
 
-# In[2]:
-
-
 # this function extracts metadata about each crn from database.txt
 def extract_course_data(crns):
     d_final = {}
-    file = open('shreyav5/database.txt', 'r')
+    file = open('database.txt', 'r')
     f = file.readlines()
     course_dict = {}
     for c in crns:
@@ -73,16 +67,10 @@ def convert_times_and_sort_days(days, sorted_days):
       sorted_days[key] = val
 
 
-# In[5]:
-
-
 # returns differece between start and end times
 def timeDiff(end_time,start_time):
     timeDiff = end_time - start_time
     return timeDiff
-
-
-# In[6]:
 
 
 # converts all the times in sorted_days to date time objects and populates classes_datetime
@@ -94,9 +82,6 @@ def convert_to_datetime(classes_datetime):
         start = datetime.strptime(start_end[0][:-2], "%H:%M")
         end = datetime.strptime(start_end[2][:-2], "%H:%M")
         classes_datetime[key].append([item[1], start, end]);
-
-
-# In[7]:
 
 
 # creates a dictionary called back_to_back with the following format:

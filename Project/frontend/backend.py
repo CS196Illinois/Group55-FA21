@@ -1,6 +1,7 @@
 from datetime import datetime
 from datetime import time
 from datetime import timedelta
+import ast
 
 def timeDiff(end_time,start_time):
     timeDiff = end_time - start_time
@@ -10,14 +11,14 @@ def timeDiff(end_time,start_time):
 def getSchedule(input):
     
 
-    crns = {"58056" : ['302 Transportation Building', '09:00AM - 10:50AM', 'M'],
-        "70107" : ['112 Gregory Hall', '12:00PM - 12:50PM', 'MW'],
-        "38783" : ['8 ACES Lib, Info & Alum Ctr', '02:00PM - 03:20PM', 'TR'],
-        "29825" : ['122 Bevier Hall', '10:00AM - 11:20AM', 'MW'],
-        "29785" : ['4029 Campus Instructional Facility', '10:00AM - 10:50AM', 'MWF'],
-        "68954" : ['149 National Soybean Res Ctr', '09:00AM - 09:50AM', 'M'],
-        "62727" : ['325 David Kinley Hall', '01:00PM - 02:50PM', 'MWF']
-    }
+    # crns = {"58056" : ['302 Transportation Building', '09:00AM - 10:50AM', 'M'],
+    #     "70107" : ['112 Gregory Hall', '12:00PM - 12:50PM', 'MW'],
+    #     "38783" : ['8 ACES Lib, Info & Alum Ctr', '02:00PM - 03:20PM', 'TR'],
+    #     "29825" : ['122 Bevier Hall', '10:00AM - 11:20AM', 'MW'],
+    #     "29785" : ['4029 Campus Instructional Facility', '10:00AM - 10:50AM', 'MWF'],
+    #     "68954" : ['149 National Soybean Res Ctr', '09:00AM - 09:50AM', 'M'],
+    #     "62727" : ['325 David Kinley Hall', '01:00PM - 02:50PM', 'MWF']
+    # }
 
     days = {"M" : [], "T" : [], "W": [], "R": [], "F" : []}
     for item in input:
@@ -77,9 +78,89 @@ def getSchedule(input):
     # for i in range (0, len(location_check)):  
     return(back_to_back)
 
-## TODO
-def parseBackToBack(schedule):
-    pass
+def extract_course_data(crns):
+    d_final = {}
+    file = open('database.txt', 'r')
+    f = file.readlines()
+    course_dict = {}
+    for c in crns:
+        for line in f:
+            if (c in line):
+                course_dict = ast.literal_eval("{" + line + "}")
+                for key, value in course_dict.items():
+                    d_final[key] = value
+    return d_final
 
-def getTravelTime(parsed_):
-    pass 
+
+
+# generate_daily_agenda takes the course data and organizes it by day in a dictionary
+def generate_daily_agenda(days, crns):
+    for item in crns.keys():
+        if(len(crns[item][2]) > 1):
+          for letter in crns[item][2]:
+            # Storing time and location in a list 'temp' and appending it to dictionary 'days'
+            temp = []
+            temp.append(crns[item][1])
+            temp.append(crns[item][0])
+            days[letter].append(temp)
+        else:
+            temp = []
+            temp.append(crns[item][1])
+            temp.append(crns[item][0])
+            days[crns[item][2]].append(temp)
+
+
+# convert_times_and_sort_days takes the days dictionary, and converts times after 12 pm to double digits
+# it also sorts the classes by the times in ascending order
+def convert_times_and_sort_days(days, sorted_days):
+    for key, val in days.items():
+      for item in val:
+        if ("PM" in item[0] and (not("AM" in item[0]))):
+          new_time = ""
+          if(int(item[0][:2]) < 12):
+            new_start_time = str(int(item[0][:2]) + 12)
+            new_end_time = str(int(item[0][10:12]) + 12)
+            #print(new_start_time, new_end_time)
+            new_time = new_start_time + item[0][2:10] + new_end_time + item[0][12:]
+            item[0] = new_time
+        if (item[0].startswith('12') and item[0].rfind('01')!= -1):
+            new_end_time = str(int(item[0][10:12]) + 12)
+            new_time = new_end_time + item[0][12:]
+            item[0] = item[0][0:10] + new_time
+    for key, val in days.items():
+      val = sorted(val, key=lambda x: x[0])
+      sorted_days[key] = val
+
+
+# returns differece between start and end times
+def timeDiff(end_time,start_time):
+    timeDiff = end_time - start_time
+    return timeDiff
+
+
+
+# converts all the times in sorted_days to date time objects and populates classes_datetime
+def convert_to_datetime(classes_datetime):
+    datetime_object = datetime.strptime
+    for key, val in sorted_days.items():
+      for item in val:
+        start_end = item[0].split(" ") 
+        start = datetime.strptime(start_end[0][:-2], "%H:%M")
+        end = datetime.strptime(start_end[2][:-2], "%H:%M")
+        classes_datetime[key].append([item[1], start, end]);
+
+
+# creates a dictionary called back_to_back with the following format:
+# {M: [[class 1, class 2, time between class 1 & 2],[class 2, class 3, time between class 2 & 3] ]}
+def organize_classes(back_to_back, classes_datetime):
+    for key, val in classes_datetime.items():
+        i = 0
+        while i < len(val) - 1:
+            class_pair = []
+            item = val[i]
+            following_item = val[i + 1]
+            class_pair.append(item[0])
+            class_pair.append(following_item[0])
+            class_pair.append((following_item[1] - item[2]))
+            back_to_back[key].append(class_pair)
+            i = i + 1
