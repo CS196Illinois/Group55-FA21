@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 from flask import Flask
 
 # from Project.frontend.backend import generate_daily_agenda
-from backend import generate_daily_agenda, extract_course_data, organize_classes, convert_times_and_sort_days, convert_to_datetime, finalClasses
+from backend import finalClasses, parseBackToBack, sendRequest, finalOutput
 import folium
 app = Flask(__name__)
 
@@ -40,7 +40,7 @@ def firstPagePost():
     crns.append(request.form['crn8'])
   
   if len(crns) > 0:
-    test = finalClasses(crns)
+    test = finalOutput(sendRequest(parseBackToBack(finalClasses(crns))))
     # '59821', '75111', '73308', '75272', '48924', '70667', '62829', '57971'
     print(test)
     # location = geocode("Bevier Hall UIUC")
@@ -54,8 +54,8 @@ def firstPagePost():
                 color='red',
                 weight=15,
                 opacity=0.8).add_to(map)
-    return map._repr_html_()
-    # return render_template('enterCRN.html', test = test, crns = crns) #, map._repr_html_()
+    #return map._repr_html_()
+    return render_template('enterCRN.html', test = test, crns = crns) #, map._repr_html_()
     
   else: 
     return render_template('enterCRN.html')

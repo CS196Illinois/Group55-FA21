@@ -2,6 +2,9 @@ from datetime import datetime
 from datetime import time
 from datetime import timedelta
 import ast
+import string
+import requests
+import json
 
 def timeDiff(end_time,start_time):
     timeDiff = end_time - start_time
@@ -180,3 +183,50 @@ def finalClasses(crnsInput):
     classes_datetime = convert_to_datetime(sorted_days)
     back_to_back = organize_classes(classes_datetime)
     return back_to_back
+
+def parseBackToBack(schedule):
+    # schedule is back_to_back
+    back_to_back_sliced = {"M" : [], "T" : [], "W": [], "R": [], "F" : []}
+    for key, val in schedule.items():
+        temp_sliced = []
+        for clash in val:
+            translation_table = str.maketrans('', '', string.digits)
+            temp_sliced.append([clash[0].translate(translation_table).strip() + " UIUC", clash[2].translate(translation_table).strip() + " UIUC", clash[1], clash[3], clash[4]])
+        back_to_back_sliced[key] += temp_sliced
+    print(back_to_back_sliced)
+    return back_to_back_sliced
+
+def sendRequest(back_to_back_sliced):
+    for key,val in back_to_back_sliced.items():
+        if val:
+            for item in val:
+                url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + item[0] + "&destinations=" + item[1] + "&key=&mode=walking"
+                print(item[0])
+                print(item[1])
+                print(url)
+                payload={}
+                headers={}
+                response = requests.request("GET", url, headers=headers, data=payload)
+                try:
+                    print(response.text)
+                    print(response.json()["rows"][0]["elements"][0]["duration"]["text"])
+                    item.append(response.json()["rows"][0]["elements"][0]["duration"]["text"])
+                except KeyError:
+                    pass
+    return back_to_back_sliced
+            #print(response.json()["rows"][0]["elements"][0]["duration"]["text"])
+
+def convertDateTime(datetime_object):
+    return datetime_object.strftime("%H:%M")
+    
+                
+
+def finalOutput(back_to_back_sliced):
+    final = {"M" : [], "T" : [], "W": [], "R": [], "F" : []}
+    for key, val in back_to_back_sliced.items():
+        if val:
+            for item in val:
+                output = "You have to go from " + item[0][:-5] + " to " + item[1][:-5] + " at " + convertDateTime(item[2]) + " in " + item[5]
+                final[key].append(output)
+    print(final)
+    return final
