@@ -223,11 +223,12 @@ def convertDateTime(datetime_object):
                 
 
 def finalOutput(back_to_back_sliced):
-    final = {"M" : [], "T" : [], "W": [], "R": [], "F" : []}
+    final = {"Monday" : [], "Tuesday" : [], "Wednesday": [], "Thursday": [], "Friday" : []}
+    keyConvert = {"M" : "Monday", "T" : "Tuesday", "W": "Wednesday", "R": "Thursday", "F" : "Friday"}
     for key, val in back_to_back_sliced.items():
         if val:
             for item in val:
-                output = "You have to go from " + item[0][:-5] + " to " + item[1][:-5] + " at " + convertDateTime(item[2]) + " in " + item[5]
-                final[key].append(output)
+                output = "you have to go from " + item[0][:-5] + " to " + item[1][:-5] + " at " + convertDateTime(item[2]) + " in " + item[5]
+                final[keyConvert[key]].append(output)
     #print(final)
     return final

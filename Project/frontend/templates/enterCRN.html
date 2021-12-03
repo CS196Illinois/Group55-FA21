@@ -10,9 +10,13 @@
     table {
         width: 100%;
     }
+    tr {
+        width: auto;
+        border: 1px solid black
+    }
     td {
         width: 50%;
-        border: 0p;
+        border: 1p;
         font-size: 14px;
     }
     h3 {
@@ -62,21 +66,23 @@
         <td>
 
             <!-- Prints classes 
-    {% for crn in crns %}
-      <p>{{ crn }} </p>
-    {% endfor %}
-    prints schedule -->
-
-
-            {% for day in test %}
-            {% if test[day]|length > 0 %}
-            <p>{{day}}: {{test[day][0]}}</p>
-            {% else %}
-            <p>{{day}}: No conflicts</p>
-            {% endif %}
+            {% for crn in crns %}
+            <p>{{ crn }} </p>
             {% endfor %}
+            prints schedule -->
 
+            
+            {% for day in test %}
+                
+                        {% if test[day]|length > 0 %}
+                            <p>{{day}} {{test[day][0]}}</p>
+                        {% else %}
+                            <p>{{day}}: No conflicts</p>
+                        {% endif %}
+                    
+            {% endfor %}
         </td>
+    </tr>
 </table>
 <!-- Calendar test 
 <table>

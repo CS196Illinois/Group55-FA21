@@ -42,7 +42,7 @@ def firstPagePost():
   if len(crns) > 0:
     test = finalOutput(sendRequest(parseBackToBack(finalClasses(crns))))
     # '59821', '75111', '73308', '75272', '48924', '70667', '62829', '57971'
-    print(test)
+    #print(test)
     # location = geocode("Bevier Hall UIUC")
     # print(location)
     map = folium.Map(
