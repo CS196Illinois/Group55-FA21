@@ -154,7 +154,7 @@ def convert_to_datetime(sorted_days):
         start_end = item[0].split(" ") 
         start = datetime.strptime(start_end[0][:-2], "%H:%M")
         end = datetime.strptime(start_end[2][:-2], "%H:%M")
-        classes_datetime[key].append([item[1], start, end]);
+        classes_datetime[key].append([item[1], start, end])
     return classes_datetime
 
 # creates a dictionary called back_to_back with the following format:
@@ -193,23 +193,24 @@ def parseBackToBack(schedule):
             translation_table = str.maketrans('', '', string.digits)
             temp_sliced.append([clash[0].translate(translation_table).strip() + " UIUC", clash[2].translate(translation_table).strip() + " UIUC", clash[1], clash[3], clash[4]])
         back_to_back_sliced[key] += temp_sliced
-    print(back_to_back_sliced)
+    #print(back_to_back_sliced)
     return back_to_back_sliced
 
 def sendRequest(back_to_back_sliced):
     for key,val in back_to_back_sliced.items():
         if val:
             for item in val:
+                #                                                                                                                   DELETE THE KEY BEFORE PUSHING!!!!
                 url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + item[0] + "&destinations=" + item[1] + "&key=&mode=walking"
-                print(item[0])
-                print(item[1])
-                print(url)
+                #print(item[0])
+                #print(item[1])
+                #print(url)
                 payload={}
                 headers={}
                 response = requests.request("GET", url, headers=headers, data=payload)
                 try:
-                    print(response.text)
-                    print(response.json()["rows"][0]["elements"][0]["duration"]["text"])
+                    #print(response.text)
+                    #print(response.json()["rows"][0]["elements"][0]["duration"]["text"])
                     item.append(response.json()["rows"][0]["elements"][0]["duration"]["text"])
                 except KeyError:
                     pass
@@ -226,7 +227,7 @@ def finalOutput(back_to_back_sliced):
     for key, val in back_to_back_sliced.items():
         if val:
             for item in val:
-                output = "You have to go from " + item[0][:-5] + " to " + item[1][:-5] + " at " + convertDateTime(item[2]) + " in " + item[5]
+                output = "you have to go from " + item[0][:-5] + " to " + item[1][:-5] + " at " + convertDateTime(item[2]) + " in " + item[5]
                 final[key].append(output)
-    print(final)
+    #print(final)
     return final

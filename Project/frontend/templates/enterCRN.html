@@ -70,7 +70,7 @@
 
             {% for day in test %}
             {% if test[day]|length > 0 %}
-            <p>{{day}}: {{test[day]}}</p>
+            <p>{{day}}: {{test[day][0]}}</p>
             {% else %}
             <p>{{day}}: No conflicts</p>
             {% endif %}
