@@ -228,7 +228,7 @@ def finalOutput(back_to_back_sliced):
     for key, val in back_to_back_sliced.items():
         if val:
             for item in val:
-                output = "you have to go from " + item[0][:-5] + " to " + item[1][:-5] + " at " + convertDateTime(item[2]) + " in " + item[5]
+                output = "you have to go from " + item[0][:-5] + " to " + item[1][:-5] + " at " + convertDateTime(item[2]) + ". Travel time is " + item[5] + "."
                 final[keyConvert[key]].append(output)
     #print(final)
     return final
