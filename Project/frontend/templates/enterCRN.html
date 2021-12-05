@@ -75,7 +75,9 @@
             {% for day in test %}
                 
                         {% if test[day]|length > 0 %}
-                            <p>{{day}} {{test[day][0]}}</p>
+                            {% for conflict in test[day] %}
+                            <p>{{day}} {{conflict}}</p>
+                            {% endfor %}
                         {% else %}
                             <p>{{day}}: No conflicts</p>
                         {% endif %}
